@@ -20,6 +20,7 @@ class CreateTeachersTable extends Migration
             $table -> string('address');
             $table -> string('email');
             $table -> string('phone');
+            $table -> string('image');
             $table->unique(['email', 'phone']);
             $table->timestamps();
         });

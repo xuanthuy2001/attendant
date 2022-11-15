@@ -134,9 +134,9 @@ color: #fff
 <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
     <thead>
         <tr>
-            <th>fullname</th>
+            <th>full name</th>
             <th>info</th>
-            <th>action</th>
+            <th>chi tiết</th>
         </tr>
     </thead>
     <tbody id="teachers-body">
@@ -155,7 +155,7 @@ color: #fff
              </address>
             <br>
             </td>
-            <td>{{ $teacher -> full_name }}</td>
+            <td><a href="">Xem chi tiết về {{ $teacher -> last_Name }}</a></td>
         </tr>
         @endforeach
     </tbody>

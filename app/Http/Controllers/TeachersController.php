@@ -54,15 +54,19 @@ class TeachersController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTeachersRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(StoreTeachersRequest $request)
     {
-        //
+        // dd($request -> input());
+        $teacher = new Teachers();
+        $teacher->first_Name = $request->input('first_name');
+        $teacher->last_Name = $request->input('last_name');
+        $teacher->address = $request->input('address');
+        $teacher->email = $request->input('email');
+        $teacher->phone = $request->input('phone');
+        $teacher->image = $request->input('image');
+
+        $teacher->save();
     }
 
     /**
