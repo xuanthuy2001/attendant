@@ -64,9 +64,13 @@ class TeachersController extends Controller
         $teacher->address = $request->input('address');
         $teacher->email = $request->input('email');
         $teacher->phone = $request->input('phone');
-        $teacher->image = $request->input('image');
-
+        // dd($request -> input());
+        $imageName = "images/teachers/".time().'.'.$request->image->extension();
+        $teacher->image =$imageName;
+        // Public Folder
+        $request->image->move(public_path('images/teachers'), $imageName);
         $teacher->save();
+        return redirect()->route('teacher.index')->with('message', 'Thêm thành công');
     }
 
     /**

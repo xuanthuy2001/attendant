@@ -36,7 +36,13 @@ class StoreTeachersRequest extends FormRequest
                 'regex:/^\w+[-\.\w]*@(?!(?:outlook|myemail|yahoo)\.com$)\w+[-\.\w]*?\.\w{2,4}$/'
             ],
             'phone' =>  ['required'],
-            'image' => 'required',  
+            'image' =>  [
+                'required',
+                'image',
+                'mimes:jpeg,png,jpg',
+                'mimetypes:image/jpeg,image/png,image/jpg',
+                'max:2048',
+            ],
         ];
         
     }
@@ -56,12 +62,14 @@ class StoreTeachersRequest extends FormRequest
     {
         
         return [
+                    'unique' => ":attribute đã tồn tại ",
                     'required' => ' :attribute không được để trống',
                     'string' => ' :attribute phải ở dạng chữ',
                     'email' => 'Sai định dạng email',
                     'address' => 'Địa chỉ email',
                     'phone' => 'Số điện thoại',
                     'image' => 'Ảnh',
+                    'max'=>'dung lượng file không được quá 2MB'
         ];
     }
     

@@ -4,7 +4,7 @@
 <link href="{{ asset('css/buttons.bootstrap4.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
-<form class="mt-5" action="{{ route('teacher.add') }}" method="post">
+<form class="mt-5" action="{{ route('teacher.add') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label>first name</label>

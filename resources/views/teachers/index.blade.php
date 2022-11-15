@@ -115,6 +115,7 @@ color: #fff
 </style>
 @endsection
 @section('content')
+
 <div class="page-title-box">
     <div class="page-title-right">
         <div class="app-search">
@@ -131,6 +132,11 @@ color: #fff
     </div>
     <h4 class="page-title">Tasks <a href="{{ route('teacher.create') }}" class="btn btn-success btn-sm ml-3">Add New</a></h4>
 </div>
+@if (session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
 <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
     <thead>
         <tr>
