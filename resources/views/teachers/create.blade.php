@@ -2,6 +2,7 @@
 @section('title',$title)
 @section('css')
 <link href="{{ asset('css/buttons.bootstrap4.css') }}" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
 <form class="mt-5" action="{{ route('teacher.add') }}" method="post" enctype="multipart/form-data">
@@ -49,7 +50,51 @@
         @endif
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
+
+    <div class="form-group">
+        <label>city</label>
+        <select name="city" id="select-city" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label>district</label>
+        <select name="district" id="select-district" class="form-control"></select>
+    </div>
 </form>
 
 @endsection
 
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script type="text/javascript">
+        async function loadDistrict()
+        {
+            $('#select-district').empty();
+            const path = $("#select-city option:selected").data('path');
+            const response =await fetch('{{ asset('locations/') }}'+ path)
+            const data = await response.json();
+            $.each(data.district, function(index, each){
+                if(each.pre === "Quận"){
+                    $('#select-district').append(`<option >${each.name}</option>`);
+                }
+            })
+        }
+
+
+        $( document ).ready(async function() {
+            $('#select-city').select2();
+            const response = await fetch('{{ asset('locations/index.json') }}');
+            const cities = await response.json();
+           $.each(cities, function(index, city)
+           {
+                $('#select-city').append(`<option data-path='${city.file_path}'>${index}</option>`);
+           })
+
+           $('#select-city').change(function(){
+                loadDistrict();
+           });
+           $('#select-district').select2();
+           loadDistrict();
+        });
+    </script>
+@endsection
