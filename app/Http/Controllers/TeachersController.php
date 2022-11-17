@@ -53,9 +53,15 @@ class TeachersController extends Controller
     
     public function store(StoreTeachersRequest $request)
     {   
-   
-        
+        $idTeacher='';
+        $currentId = explode(" ",  $request->input('fullname')) ;
+        foreach ($currentId as $w) {
+            $idTeacher .= mb_substr($w, 0, 1);
+        }
+        $idTeacher=strtoupper($idTeacher).date('Y', strtotime($request->input('birthdate')));
+       
         $teacher = new Teachers();
+        $teacher ->id =  $idTeacher;
         $teacher->fullname = $request->input('fullname');
         $teacher->address = $request-> input('district') . '-' . $request-> input('city');
         $teacher->email = $request->input('email');
@@ -66,7 +72,7 @@ class TeachersController extends Controller
         $imageName = "images/teachers/".time().'.'.$request->image->extension();
         $teacher->image =$imageName;
         // Public Folder
-        $request->image->move(public_path('images/teachers'), $imageName);
+        $request->image->move(public_path("images/teachers/{$idTeacher}"), $imageName);
         $teacher->save();
         return redirect()->route('teacher.index')->with('message', 'Thêm thành công');
     }

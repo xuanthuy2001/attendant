@@ -14,6 +14,7 @@ class TeachersFactory extends Factory
     public function definition()
     {
         return [
+            'id' => $this -> faker -> countryCode(),
             'fullname' => $this->faker->name,
             'gender' => array_rand([1,2],1),
             'birthdate' => $this->faker->date($format = 'Y-m-d', $max = 'now'),

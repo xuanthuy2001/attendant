@@ -11,6 +11,7 @@ class Teachers extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'fullname',
         'address',
         'gender',
@@ -21,6 +22,11 @@ class Teachers extends Model
     ];
 
     public $timestamps = false;
+
+    public function getCurrentIdAtribute()
+    {
+        return $this->id;
+    }
 
     public function getBirthdayFormatAttribute()
     {

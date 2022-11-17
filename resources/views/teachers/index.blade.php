@@ -148,7 +148,7 @@ color: #fff
     <tbody id="teachers-body">
       @foreach ($teachers as $teacher)
       <tr>
-            <td>{{ $teacher -> fullname }}</td>
+            <td>{{ strtoupper($teacher -> fullname) }}</td>
             <td>
             email:    <a href="mailto:your@email.com?body=the attached file is at this link: %link%">
                             {{ $teacher -> email }}
