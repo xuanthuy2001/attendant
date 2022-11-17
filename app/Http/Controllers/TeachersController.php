@@ -12,20 +12,16 @@ class TeachersController extends Controller
 {
    
     public function index()
-    {DB::enableQueryLog();
-
+    {
         $search  = '';
-
         if(isset($_GET['search']))
         {
             $search  = $_GET['search'];
         }
-
         $title = 'Teacher';
         $teachers = Teachers::query()
-            ->where('first_Name',  'LIKE', "%$search%") 
-            ->orWhere('last_Name',  'LIKE', "%$search%")
-            ->paginate(15) ;
+            ->where('fullname',  'LIKE', "%$search%") 
+            ->paginate(3) ;
         return view('teachers.index',[
             'title' => $title,
             'teachers' => $teachers
@@ -36,7 +32,7 @@ class TeachersController extends Controller
     {
         $keyword = $request->input('search');
         $cakes = Teachers::query()
-        ->where('first_Name',  'LIKE', "%$keyword%") -> get();
+        ->where('fullname',  'LIKE', "%$keyword%") -> get();
         $response = array();
         foreach($cakes as $employee){
            $response[] = array("value"=>$employee->id,"label"=>$employee->name);
@@ -56,15 +52,17 @@ class TeachersController extends Controller
 
     
     public function store(StoreTeachersRequest $request)
-    {
-        // dd($request -> input());
+    {   
+   
+        
         $teacher = new Teachers();
-        $teacher->first_Name = $request->input('first_name');
-        $teacher->last_Name = $request->input('last_name');
-        $teacher->address = $request->input('address');
+        $teacher->fullname = $request->input('fullname');
+        $teacher->address = $request-> input('district') . '-' . $request-> input('city');
         $teacher->email = $request->input('email');
         $teacher->phone = $request->input('phone');
-        // dd($request -> input());
+        $teacher->birthdate = $request->input('birthdate');
+        $teacher->birthdate = $teacher->BirthdayFormat;
+        $teacher->gender = $request->input('gender');
         $imageName = "images/teachers/".time().'.'.$request->image->extension();
         $teacher->image =$imageName;
         // Public Folder

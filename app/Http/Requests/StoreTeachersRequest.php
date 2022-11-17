@@ -24,18 +24,19 @@ class StoreTeachersRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required','string'],
-            'last_name' =>  ['required','string'],
-            'address' =>  ['required','string'],
+            'fullname' => ['required','string'],
+            'city' =>  ['required','string'],
+            'district' =>  ['required','string'],
             'email' => [
                 'required',
                 'string',
                 'email',
                 'max:255',
                 'unique:Teachers',
-                'regex:/^\w+[-\.\w]*@(?!(?:outlook|myemail|yahoo)\.com$)\w+[-\.\w]*?\.\w{2,4}$/'
             ],
             'phone' =>  ['required'],
+            'gender' =>  ['required','in:1,2'],
+            'birthdate' =>  ['required','date_format:m/d/Y'],
             'image' =>  [
                 'required',
                 'image',
@@ -69,7 +70,8 @@ class StoreTeachersRequest extends FormRequest
                     'address' => 'Địa chỉ email',
                     'phone' => 'Số điện thoại',
                     'image' => 'Ảnh',
-                    'max'=>'dung lượng file không được quá 2MB'
+                    'max'=>'dung lượng file không được quá 2MB',
+                    'in'=>'Bạn không được phép chỉnh sửa'
         ];
     }
     

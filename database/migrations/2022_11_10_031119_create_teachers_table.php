@@ -15,9 +15,10 @@ class CreateTeachersTable extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table -> string('first_Name');
-            $table -> string('last_Name');
+            $table -> string('fullname');
             $table -> string('address');
+            $table -> integer('gender');
+            $table -> date('birthdate');
             $table -> string('email');
             $table -> string('phone');
             $table -> string('image');

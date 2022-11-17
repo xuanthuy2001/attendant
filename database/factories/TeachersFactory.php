@@ -14,12 +14,14 @@ class TeachersFactory extends Factory
     public function definition()
     {
         return [
-            'first_Name' => $this->faker->name,
+            'fullname' => $this->faker->name,
+            'gender' => array_rand([1,2],1),
+            'birthdate' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'email' => $this->faker->unique()->safeEmail,
-            'last_Name'=> $this -> faker ->name(),
             'address'=> $this -> faker ->streetAddress(),
             'email'=> $this -> faker ->companyEmail(),
             'phone'=> $this -> faker ->tollFreePhoneNumber(),
+            'image'=> "images/teachers/2001.jpg",
         ];
     }
 }

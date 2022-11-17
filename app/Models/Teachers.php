@@ -4,24 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Teachers extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'first_Name',
-        'last_Name',
+        'fullname',
         'address',
-        'image',
+        'gender',
+        'birthdate',
         'email',
         'phone',
+        'image'
     ];
 
     public $timestamps = false;
 
-    public function getFullNameAttribute() 
+    public function getBirthdayFormatAttribute()
     {
-        return $this->first_Name . ' ' . $this->last_Name;
+         return Carbon::parse($this->attributes['birthdate'])->format('Y-m-d');
     }
+    
 }
