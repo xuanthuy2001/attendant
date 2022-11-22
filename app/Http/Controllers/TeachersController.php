@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Teachers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreTeachersRequest;
 use App\Http\Requests\UpdateTeachersRequest;
+use App\Imports\TeachersImport;
 
 class TeachersController extends Controller
 {
@@ -59,9 +61,8 @@ class TeachersController extends Controller
             $idTeacher .= mb_substr($w, 0, 1);
         }
         $idTeacher=strtoupper($idTeacher).date('Y', strtotime($request->input('birthdate')));
-       
         $teacher = new Teachers();
-        $teacher ->id =  $idTeacher;
+        $teacher ->teacher_id =  $idTeacher;
         $teacher->fullname = $request->input('fullname');
         $teacher->address = $request-> input('district') . '-' . $request-> input('city');
         $teacher->email = $request->input('email');
@@ -120,5 +121,13 @@ class TeachersController extends Controller
     public function destroy(Teachers $teachers)
     {
         //
+    }
+    public function importCsv(Request  $request)
+    {
+        
+        $file = $request->file("csv")->store("import");
+        $import = new TeachersImport();
+        $import-> import($file);
+        return back()->withStatus('Thêm thành công ');
     }
 }

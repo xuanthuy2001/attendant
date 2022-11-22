@@ -34,7 +34,7 @@ class StoreTeachersRequest extends FormRequest
                 'max:255',
                 'unique:Teachers',
             ],
-            'phone' =>  ['required'],
+            'phone' =>  ['required','unique:Teachers'],
             'gender' =>  ['required','in:1,2'],
             'birthdate' =>  ['required','date_format:m/d/Y'],
             'image' =>  [

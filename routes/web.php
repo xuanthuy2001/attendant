@@ -13,6 +13,7 @@ Route::get('/teacher/create', [TeachersController::class, 'create'])-> name('tea
 Route::post('/teacher/add', [TeachersController::class, 'store'])-> name('teacher.add');
 
 Route::get('search', [TeachersController::class,'searchByName'])-> name('teacher.searchByName');
+route::post('import-csv', [TeachersController::class, 'importCsv'])-> name("import_csv");
 
 // test
 Route::get('test', [testController::class,'test'])-> name('test');

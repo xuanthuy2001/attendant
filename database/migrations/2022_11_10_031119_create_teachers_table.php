@@ -21,7 +21,7 @@ class CreateTeachersTable extends Migration
             $table -> date('birthdate');
             $table -> string('email');
             $table -> string('phone');
-            $table -> string('image');
+            $table -> string('image')->nullable();
             $table->unique(['email', 'phone']);
             $table->timestamps();
         });
